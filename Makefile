@@ -12,7 +12,7 @@ clean: stop
 	@ rm -rf
 
 prune: clean
-	@ docker system prune -f
+	@ docker system prune -f --volumes
 
 reload: 
 	@ docker-compose -f srcs/docker-compose.yml up --build

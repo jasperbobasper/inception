@@ -1,10 +1,12 @@
-FROM Debian:11
+FROM debian:buster
 
-RUN apt-get update && apt-get upgrade && apt install -y mariadb-server
+RUN apt-get update && apt install -y mariadb-server
 
-COPY ./conf/srv.conf /etc/mysql/mariadb.conf.d/
-COPY ./tools /var/www/
+COPY conf/srv.conf /etc/mysql/mariadb.conf.d/
+COPY tools/init_db.sql /var/www/
 
-RUN service mysql start && /var/www/init_db.sql && rm -f /var/www/init_db.sql;
+RUN chmod +x /var/www/init_db.sql
+RUN service mysql start && mysql < /var/www/init_db.sql 
+RUN rm -f /var/www/init_db.sql;
 
-CMD ["mysqld"]
+CMD ["mariadb"]

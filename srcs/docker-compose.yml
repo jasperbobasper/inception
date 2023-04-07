@@ -1,38 +1,62 @@
-services:
-  nginx:
-    build: requirements/nginx
-    ports: 
-      - "80:80"
-      - "443:443"
-    restart: always
-    depends_on:
-      - wordpress
-    env_file:
-      - .env
-    volumes:
-      - '~/home/${LINUX_USER}/data/inception/website:/'
+version: '3.8'
 
-  wordpress:
-    build: requirements/wordpress
-    ports:
-      - '8080:80'
-      - '9000:9000'
-    volumes: 
-      - "~/home/${LINUX_USER}/data/inception/website/public:/myapps"
-    depends_on:
-      - mariadb
-    restart: always
-    env_file:
-      - .env
+# networks:
+#   app-network:
+#     name: app-network
+#     driver: bridge
+
+volumes: 
+#   web:
+#     driver: local
+#     name: web
+#     driver_opts:
+#         type: none
+#         o: bind
+#         device: /data/inception/website
+  db:
+    driver: local
+    name: db
+    driver_opts:
+        type: none
+        o: bind
+        device: /data/inception/database
+services:
+  # nginx:
+  #   build: requirements/nginx
+  #   ports: 
+  #     - "80:80"
+  #     - "443:443"
+  #   restart: always
+  #   depends_on:
+  #     - wordpress
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - '~/home/${LINUX_USER}/data/inception/website:/'
+
+  # wordpress:
+  #   build: requirements/wordpress
+  #   ports:
+  #     - '8080:80'
+  #     - '9000:9000'
+  #   volumes: 
+  #     - "~/home/${LINUX_USER}/data/inception/website/public:/myapps"
+  #   depends_on:
+  #     - mariadb
+  #   restart: always
+  #   env_file:
+  #     - .env
 
   mariadb:
     build: requirements/mariadb
     ports:
       - '3306:3306'
-    env_file:
-      - .env
     volumes:
-      - "~/home/${LINUX_USER}/data/inception/database:/"
-      - "~/home/${LINUX_USER}/data/inception/database:/etc/mysql"
+      - db:/var/lib/mysql
     restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MARIADB_DATABASE}
+      - MYSQL_USER=${MARIADB_USER}
+      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
 
