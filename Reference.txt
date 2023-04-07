@@ -25,9 +25,30 @@ PHP communicates with MariaDB to retrieve or store data
 
 -The docker image holds the Containers. Each container contains one of these services. 
 
-The docker-compose.yml file describes how the image should be built, a bit like a makefile (e.g in what order the containers should be created)
+The docker-compose.yml file describes how the image should be built, 
+a bit like a makefile (e.g in what order the containers should be created, 
+what ports are open to them and what volumes they are using)
 
-The Dockerfile builds the container. It basically just takes commands like you would run in the terminal to install the programs
+eg: 
+
+version: 1
+services:
+        service name eg. wordpress:
+                build: dockerfile/directory/name
+                ports:
+                - 'port'
+                volumes: "folder/where/install/happens:/"
+                restart: always (this restarts after crash)
+                depends_on: 
+                - "service that needs to start before this one"
+        next service name:
+                .....
+
+
+
+
+The Dockerfile builds the container. 
+It basically just takes commands like you would run in the terminal to install the programs
 
 
 
@@ -62,3 +83,12 @@ nginx.config file must contain the ssl certificates and TLS protocols
 ### MARIADB ###
 
 Mariadb needs the database to be created and the user credentials to be input. 
+https://mariadb.com/kb/en/setting-up-a-lamp-stack-with-docker-compose/
+
+
+
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MARIADB_DATABASE}
+      - MYSQL_USER=${MARIADB_USER}
+      - MYSQL_PASSWORD=${MARIADB_PASSWORD}

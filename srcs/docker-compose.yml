@@ -1,22 +1,24 @@
-version: '1'
 services:
   nginx:
-    build: requirements/src/nginx
+    build: requirements/nginx
     ports: 
       - "80:80"
       - "443:443"
-    volumes:
-      - "./inception/website/"
     restart: always
     depends_on:
       - wordpress
+    env_file:
+      - .env
+    volumes:
+      - '~/home/${LINUX_USER}/data/inception/website:/'
 
   wordpress:
-    build: requirements/src/wordpress
+    build: requirements/wordpress
     ports:
       - '8080:80'
       - '9000:9000'
-    volumes: "./inception/website/public:/myapps"
+    volumes: 
+      - "~/home/${LINUX_USER}/data/inception/website/public:/myapps"
     depends_on:
       - mariadb
     restart: always
@@ -24,15 +26,13 @@ services:
       - .env
 
   mariadb:
-    build: requirements/src/mariadb
+    build: requirements/mariadb
     ports:
       - '3306:3306'
+    env_file:
+      - .env
     volumes:
-      - "./inception/database:${MARIADB_DATA_DIR}"
+      - "~/home/${LINUX_USER}/data/inception/database:/"
+      - "~/home/${LINUX_USER}/data/inception/database:/etc/mysql"
     restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MARIADB_DATABASE}
-      - MYSQL_USER=${MARIADB_USER}
-      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
 
