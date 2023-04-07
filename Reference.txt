@@ -1,0 +1,64 @@
+### Internals ###
+
+LEMP stack = (L)inux (E)Nginx (M)ariaDB (P)hp
+
+Linux = operating system that runs server
+Nginx = Web server that handles HTTP requests
+MariaDB = Relational database management system 
+PHP = programming language for web apps 
+
+How does it work?
+
+Nginx (server) listens to HTTP requests and forwards them to the PHP script. 
+The PHP result is then forwarded back to the user through Nginx.
+
+MariaDB is used to store the website's (in this case, Wordpress) data
+PHP communicates with MariaDB to retrieve or store data
+
+(User via SSH) ---request---> (Nginx) -----request----> (Wordpress)(PHP) ---request--> (MariaDB)
+
+(MariaDB) ---result---> (Wordpress)(PHP) --result---> (Nginx) ---result---> (User via SSH)
+
+
+### DOCKER  ###
+
+
+-The docker image holds the Containers. Each container contains one of these services. 
+
+The docker-compose.yml file describes how the image should be built, a bit like a makefile (e.g in what order the containers should be created)
+
+The Dockerfile builds the container. It basically just takes commands like you would run in the terminal to install the programs
+
+
+
+### Making it work ### 
+
+so basically all of these programs need to be built in a specific order, 
+need to be configured etc. using config files and .sh scripts
+
+this is the part I have not figured out because there is way too much conflicting info out there 
+
+also there needs to be a .env file that holds all the usernames and passwords etc.
+
+
+
+### NGINX ###
+
+needed docs: Dockerfile, nginx.config
+
+The user needs to connect to the NGINX container via port 443 using TLSv1.2 or TLSv1.3 protocol
+
+TLS(v1.2/3) = Modern version of SSH. Creates secure connection between 2 endpoints for data transmission.
+        -Encrypts/decrypts the data 
+        -Authenticates both parties using a SSL/TLS certificate 
+
+how to create SSL certificate: https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-debian-10
+but you need to use the -subj switch as well so it can be done from the Dockerfile: https://www.digicert.com/kb/ssl-support/openssl-quick-reference-guide.htm
+
+SSL certificate is created by the dockerfile 
+nginx.config file must contain the ssl certificates and TLS protocols
+
+
+### MARIADB ###
+
+Mariadb needs the database to be created and the user credentials to be input. 
