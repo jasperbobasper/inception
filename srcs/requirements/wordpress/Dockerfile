@@ -26,10 +26,10 @@ RUN wget https://wordpress.org/latest.tar.gz
 RUN tar -xzf latest.tar.gz
 
 # move config file to correct dir
-COPY tools/wp-config.php /var/www/wordpress/
+COPY conf/wp-config.php /var/www/wordpress/
 
 # move sh script to root and granting permissions for execution
-COPY conf/config.sh /usr/local/bin/
+COPY tools/config.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/config.sh
 
 # give php client access to folder

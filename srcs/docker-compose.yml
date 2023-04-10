@@ -1,18 +1,20 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  # nginx:
-  #   build: requirements/nginx
-  #   ports: 
-  #     - "80:80"
-  #     - "443:443"
-  #   restart: always
-  #   depends_on:
-  #     - wordpress
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - '~/home/${LINUX_USER}/data/inception/website:/'
+  nginx:
+    container_name: nginx
+    build: requirements/nginx
+    ports: 
+      - "443:443"
+    volumes:
+      - web:/var/www/wordpress:delegated
+    depends_on:
+      - wordpress
+    restart: always
+    networks:
+      - backend
+    env_file:
+      - .env
 
   wordpress:
     container_name: wordpress
