@@ -2,7 +2,7 @@ FROM debian:buster
 
 RUN apt-get update && apt install -y mariadb-server
 
-COPY conf/srv.conf /etc/mysql/mariadb.conf.d/
+COPY conf/mdb.my.conf /etc/mysql/mariadb.conf.d/
 COPY tools/test.sh  /usr/local/bin/
 RUN chmod +x /usr/local/bin/test.sh
 # COPY tools/init_db.sql /var/www/
