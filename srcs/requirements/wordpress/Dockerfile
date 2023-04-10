@@ -1,29 +1,38 @@
 FROM debian:buster
 
-RUN     apt-get update && apt-get upgrade && apt install \
+RUN     apt-get update && apt install -y \
+        wget \
         php \
-        php-fpm \
-        php-curl \
-        php-opcache \
-        php-gd \
-        php-cli \
-        php-zip \
+        php-common \
         php-mysql \
-        php-json \
-        php-mbstring \
-        php-exif \
-        php-openssl \
-        php-fileinfo \
-        php-hash \
-        php-imagick \
-        php-xml -y
+        php-curl \
+        php-fpm
+        # php8.2-opcache \
+        # php8.2-gd \
+        # php8.2-cli \
+        # php8.2-zip \
+        # php8.2-json \
+        # php8.2-mbstring \
+        # php8.2-exif \
+        # php8.2-openssl \
+        # php8.2-fileinfo \
+        # php8.2-hash \
+        # php8.2-imagick \
+        # php8.2-xml -y
 
-RUN wget https://wordpress.org/latest.tar.gz
+# move to wordpress install dir, download and unzip wordpress files
+WORKDIR /var/www/wordpress
+RUN wget https://wordpress.org/latest.tar.gz 
+RUN tar -xzf latest.tar.gz
 
-RUN tar -xzfv latest.tar.gz -C ~/home/${LINUX_USER}/inception/website/nginx/
+# move config file to correct dir
+COPY tools/wp-config.php /var/www/wordpress/
 
-COPY conf/wp-config.php ~/home/${LINUX_USER}/inception/website/nginx/wordpress/wp-config-sample.php
+# move sh script to root and granting permissions for execution
+COPY conf/config.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/config.sh
 
-RUN chown www-data:www-data ~/home/${LINUX_USER}/inception/website/nginx/wordpress/ -R
+# give php client access to folder
+# RUN chown www-data:www-data 
 
-
+ENTRYPOINT [ "sh", "/usr/local/bin/config.sh" ]
