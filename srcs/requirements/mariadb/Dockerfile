@@ -4,7 +4,7 @@ FROM debian:buster
 RUN apt-get update && apt install -y mariadb-server
 
 # move config files
-COPY conf/mdb.my.conf /etc/mysql/mariadb.conf.d/
+COPY conf/mdb.conf /etc/mysql/mariadb.conf.d/
 
 # move sh script to root and grant permissions
 COPY tools/test.sh  /usr/local/bin/

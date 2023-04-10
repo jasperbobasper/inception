@@ -1,20 +1,18 @@
 version: '3.9'
 
 services:
-  nginx:
-    container_name: nginx
-    build: requirements/nginx
-    ports: 
-      - "443:443"
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb
+    ports:
+      - '3306:3306'
     volumes:
-      - web:/var/www/wordpress:delegated
-    depends_on:
-      - wordpress
-    restart: always
-    networks:
-      - backend
+      - db:/var/lib/mysql:delegated
+    restart: unless-stopped
     env_file:
       - .env
+    networks:
+      - backend
 
   wordpress:
     container_name: wordpress
@@ -25,24 +23,24 @@ services:
       - web:/var/www/wordpress:delegated
     depends_on:
       - mariadb
-    restart: always
+    restart: unless-stopped
     networks:
       - backend
     env_file:
       - .env
 
-  mariadb:
-    container_name: mariadb
-    build: requirements/mariadb
-    ports:
-      - '3306:3306'
+  nginx:
+    container_name: nginx
+    build: requirements/nginx
+    ports: 
+      - "443:443"
     volumes:
-      - db:/var/lib/mysql:delegated
-    restart: always
+      - web:/var/www/wordpress:delegated
     networks:
       - backend
-    env_file:
-      - .env
+    depends_on:
+      - wordpress
+    restart: unless-stopped
 
 volumes: 
   web:
