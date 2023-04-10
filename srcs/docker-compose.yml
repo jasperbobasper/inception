@@ -1,9 +1,5 @@
-version: '3.8'
+version: '3.9'
 
-# networks:
-#   app-network:
-#     name: app-network
-#     driver: bridge
 
 volumes: 
 #   web:
@@ -19,7 +15,7 @@ volumes:
     driver_opts:
         type: none
         o: bind
-        device: /data/inception/database
+        device: $HOME/data/inception/database
 services:
   # nginx:
   #   build: requirements/nginx
@@ -48,15 +44,18 @@ services:
   #     - .env
 
   mariadb:
+    
     build: requirements/mariadb
     ports:
       - '3306:3306'
     volumes:
-      - db:/var/lib/mysql
+      - db:/var/lib/mysql:delegated
     restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MARIADB_DATABASE}
-      - MYSQL_USER=${MARIADB_USER}
-      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
+    networks:
+      - backend
+    env_file:
+      - .env
 
+
+networks:
+  backend:
