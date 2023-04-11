@@ -25,14 +25,21 @@ WORKDIR /var/www/wordpress
 RUN wget https://wordpress.org/latest.tar.gz 
 RUN tar -xzf latest.tar.gz
 
-# move config file to correct dir
+RUN mkdir -p /run/php
+
+# move config files to correct dir
 COPY conf/wp-config.php /var/www/wordpress/
+COPY conf/www.conf /usr/sbin/php-fpm.d/
 
 # move sh script to root and granting permissions for execution
 COPY tools/config.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/config.sh
 
+RUN sleep 5
+
 # give php client access to folder
 # RUN chown www-data:www-data 
 
+
+# ENTRYPOINT ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
 ENTRYPOINT [ "sh", "/usr/local/bin/config.sh" ]

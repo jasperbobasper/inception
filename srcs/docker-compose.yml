@@ -5,9 +5,9 @@ services:
     container_name: mariadb
     build: requirements/mariadb
     ports:
-      - '3306:3306'
+      - 3306:3306
     volumes:
-      - db:/var/lib/mysql:delegated
+      - db:/var/lib/mysql/
     restart: unless-stopped
     env_file:
       - .env
@@ -20,7 +20,7 @@ services:
     ports:
       - '9000:9000'
     volumes: 
-      - web:/var/www/wordpress:delegated
+      - web:/var/www/wordpress/
     depends_on:
       - mariadb
     restart: unless-stopped
@@ -35,7 +35,7 @@ services:
     ports: 
       - "443:443"
     volumes:
-      - web:/var/www/wordpress:delegated
+      - web:/var/www/wordpress/
     networks:
       - backend
     depends_on:

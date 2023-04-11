@@ -4,11 +4,7 @@ if [ ! -d "/var/lib/mysql/$MARIADB_DATABASE" ]; then
 
     echo "Creating database '$MARIADB_DATABASE'..."
 
-    # launching openrc and creating runlevel file to specify current runlevels and system states
-    # openrc
-    # touch /run/openrc/softlevel
-
-    # preparing and starting MariaDB for initial configuration
+    # start MariaDB
     service mysql start
 
     # changing MariaDB configuration using root user
@@ -18,11 +14,11 @@ if [ ! -d "/var/lib/mysql/$MARIADB_DATABASE" ]; then
     # locking the root user to password specified in .env
     # flushing for the privileges to take effect
     mysql -u root << EOF
-CREATE DATABASE IF NOT EXISTS $MARIADB_DATABASE;
-CREATE USER IF NOT EXISTS '$MARIADB_USER' IDENTIFIED BY '$MARIADB_PASSWORD';
-GRANT ALL PRIVILEGES ON '$MARIADB_DATABASE.*' TO '$MARIADB_USER';
-FLUSH PRIVILEGES;
-ALTER USER 'root'@'localhost'   IDENTIFIED BY '$MARIADB_ROOT_PASSWORD';
+    CREATE DATABASE IF NOT EXISTS $MARIADB_DATABASE;
+    CREATE USER IF NOT EXISTS '$MARIADB_USER' IDENTIFIED BY '$MARIADB_PASSWORD';
+    GRANT ALL PRIVILEGES ON $MARIADB_DATABASE.* TO '$MARIADB_USER';
+    ALTER USER 'root'@'localhost'   IDENTIFIED BY '$MARIADB_ROOT_PASSWORD';
+    FLUSH PRIVILEGES;
 EOF
 
     # stopping MariaDB for configuration changes to take effect
@@ -37,4 +33,4 @@ else
 fi
 
 # running MariaDB through MySQL daemon using the mysql user
-service mysql start 
+service mysql start
