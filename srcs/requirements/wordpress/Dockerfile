@@ -35,8 +35,6 @@ COPY conf/www.conf /usr/sbin/php-fpm.d/
 COPY tools/config.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/config.sh
 
-RUN sleep 5
-
 # give php client access to folder
 # RUN chown www-data:www-data 
 
