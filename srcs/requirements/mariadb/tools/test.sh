@@ -33,4 +33,4 @@ else
 fi
 
 # running MariaDB through MySQL daemon using the mysql user
-service mysql start
+ service mysql start

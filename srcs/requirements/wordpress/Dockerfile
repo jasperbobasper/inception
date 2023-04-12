@@ -1,6 +1,7 @@
 FROM debian:buster
 
 RUN     apt-get update && apt install -y \
+        sudo \
         wget \
         php \
         php-common \
@@ -21,19 +22,29 @@ RUN     apt-get update && apt install -y \
         # php8.2-xml -y
 
 # move to wordpress install dir, download and unzip wordpress files
-WORKDIR /var/www/wordpress
-RUN wget https://wordpress.org/latest.tar.gz 
-RUN tar -xzf latest.tar.gz
+# WORKDIR /var/www/wordpress
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+# RUN tar -xzf latest.tar.gz
+
+
+RUN chmod +x wp-cli.phar
+RUN mv wp-cli.phar /usr/local/bin/wp
+
 
 RUN mkdir -p /run/php
+RUN mkdir -p /var/www/html/wordpress
+
+RUN chown -R www-data:www-data /var/www/html/wordpress
+
+WORKDIR /var/www/html/wordpress
 
 # move config files to correct dir
-COPY conf/wp-config.php /var/www/wordpress/
+COPY conf/wp-config.php /var/www/html/wordpress/
 COPY conf/www.conf /usr/sbin/php-fpm.d/
 
 # move sh script to root and granting permissions for execution
 COPY tools/config.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/config.sh
+RUN chmod 777 /usr/local/bin/config.sh
 
 # give php client access to folder
 # RUN chown www-data:www-data 
