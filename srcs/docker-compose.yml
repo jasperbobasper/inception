@@ -11,45 +11,47 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
     networks:
       - backend
 
-  wordpress:
-    container_name: wordpress
-    build: requirements/wordpress
-    ports:
-      - '9000:9000'
-    volumes: 
-      - web:/var/www/wordpress/
-    depends_on:
-      - mariadb
-    restart: unless-stopped
-    networks:
-      - backend
-    env_file:
-      - .env
+#   wordpress:
+#     container_name: wordpress
+#     build: requirements/wordpress
+#     ports:
+#       - '9000:9000'
+#     volumes: 
+#       - web:/var/www/wordpress/
+#     depends_on:
+#       - mariadb
+#     restart: unless-stopped
+#     networks:
+#       - backend
+#     env_file:
+#       - .env
 
-  nginx:
-    container_name: nginx
-    build: requirements/nginx
-    ports: 
-      - "443:443"
-    volumes:
-      - web:/var/www/wordpress/
-    networks:
-      - backend
-    depends_on:
-      - wordpress
-    restart: unless-stopped
+#   nginx:
+#     container_name: nginx
+#     build: requirements/nginx
+#     ports: 
+#       - "443:443"
+#     volumes:
+#       - web:/var/www/wordpress/
+#     networks:
+#       - backend
+#     depends_on:
+#       - wordpress
+#     restart: unless-stopped
 
 volumes: 
-  web:
-    driver: local
-    name: web
-    driver_opts:
-        type: none
-        o: bind
-        device: $HOME/data/website
+#   web:
+#     driver: local
+#     name: web
+#     driver_opts:
+#         type: none
+#         o: bind
+#         device: $HOME/data/website
   db:
     driver: local
     name: db

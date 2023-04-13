@@ -1,36 +1,43 @@
 #!/bin/sh
 
-if [ ! -d "/var/lib/mysql/$MARIADB_DATABASE" ]; then
+export MARIADB_DATABASE
+export MARIADB_USER
+export MARIADB_PASSWORD
+export MARIADB_ROOT_PASSWORD
 
-    echo "Creating database '$MARIADB_DATABASE'..."
+echo "${MARIADB_DATABASE}! GET UR DATABASE HERE"
 
-    # start MariaDB
-    service mysql start
+# if [ ! -d "/home/data/database/${MARIADB_DATABASE}" ]; then
 
-    # changing MariaDB configuration using root user
-    # creating new database with name specified in .env
-    # creating new user with name and password specified in .env
-    # granting the new user all database privileges
-    # locking the root user to password specified in .env
-    # flushing for the privileges to take effect
-    mysql -u root << EOF
-    CREATE DATABASE IF NOT EXISTS $MARIADB_DATABASE;
-    CREATE USER IF NOT EXISTS '$MARIADB_USER' IDENTIFIED BY '$MARIADB_PASSWORD';
-    GRANT ALL PRIVILEGES ON $MARIADB_DATABASE.* TO '$MARIADB_USER';
-    ALTER USER 'root'@'localhost'   IDENTIFIED BY '$MARIADB_ROOT_PASSWORD';
-    FLUSH PRIVILEGES;
-EOF
+#     echo "Creating database '${MARIADB_DATABASE}'..."
 
-    # stopping MariaDB for configuration changes to take effect
-    service mysql stop
+#     # start MariaDB
+#     service mysql start
 
-    echo "Database '$MARIADB_DATABASE' created."
+#     # changing MariaDB configuration using root user
+#     # creating new database with name specified in .env
+#     # creating new user with name and password specified in .env
+#     # granting the new user all database privileges
+#     # locking the root user to password specified in .env
+#     # flushing for the privileges to take effect
+#     mysql -u root << EOF
+#     CREATE DATABASE IF NOT EXISTS ${MARIADB_DATABASE};
+#     CREATE USER IF NOT EXISTS '${MARIADB_USER}'@'%' IDENTIFIED BY '${MARIADB_PASSWORD}';
+#     GRANT ALL PRIVILEGES ON ${MARIADB_DATABASE}.* TO '${MARIADB_USER}'@'%' WITH GRANT OPTION;
+#     ALTER USER 'root'@'localhost'   IDENTIFIED BY '${MARIADB_ROOT_PASSWORD}';
+#     FLUSH PRIVILEGES;
+# EOF
 
-else
+#     # stopping MariaDB for configuration changes to take effect
+#     service mysql stop
 
-    echo "Database '$MARIADB_DATABASE' does already exist."
+#     echo "Database '${MARIADB_DATABASE}' created."
 
-fi
+# else
 
-# running MariaDB through MySQL daemon using the mysql user
- service mysql start
+#     echo "Database '${MARIADB_DATABASE}' already exists."
+
+# fi
+
+# # running MariaDB through MySQL daemon using the mysql user
+#  service mysql start

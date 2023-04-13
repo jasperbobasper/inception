@@ -3,7 +3,11 @@
 #sleep to wait for MariaDB to start
 sleep 5
 
+# download wp 
 sudo -u www-data wp core download
+
+sudo -u www-data wp config create --dbname=$MARIADB_DATABASE --dbuser=$MARIADB_USER --dbpass=$MARIADB_PASSWORD --dbhost=localhost
+
 # # installing and initializing WordPress core files with admin credentials
 sudo -u www-data wp core install --url=$DOMAIN_NAME --title=$WORDPRESS_TITLE \
                 --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_pass \

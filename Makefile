@@ -11,7 +11,7 @@ dir:
 	mkdir -p ~/data/website
 
 build:
-	docker-compose -f  srcs/docker-compose.yml build
+	PROGRESS_NO_TRUNC=1 docker-compose -f srcs/docker-compose.yml build --progress plain --no-cache
 	
 stop:
 	docker-compose -f  srcs/docker-compose.yml down
@@ -20,7 +20,7 @@ clean:
 	docker-compose -f  srcs/docker-compose.yml down --volumes
 
 fclean:
-	docker-compose -f  srcs/docker-compose.yml down --rmi all --volumes
+	docker-compose -f  srcs/docker-compose.yml down --rmi all --volumes --remove-orphans
 	sudo rm -rf ~/data
 
 re: fclean all
