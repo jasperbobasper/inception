@@ -26,6 +26,24 @@ RUN     apt-get update && apt install -y \
 RUN mkdir -p /var/www/html/wordpress
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 # RUN tar -xzf latest.tar.gz
+
+# ARG WORDPRESS_USER
+# ARG WORDPRESS_PASS
+# ARG WORDPRESS_ADMIN_USER
+# ARG WORDPRESS_ADMIN_PASS
+# ARG WORDPRESS_ADMIN_EMAIL
+# ARG WORDPRESS_TITLE
+# ARG WORDPRESS_USER_MAIL
+# ARG WORDPRESS_TABLE_PREFIX
+# ARG AUTH_KEY
+# ARG SECURE_AUTH_KEY
+# ARG LOGGED_IN_KEY
+# ARG NONCE_KEY
+# ARG AUTH_SALT
+# ARG SECURE_AUTH_SALT
+# ARG LOGGED_IN_SALT
+# ARG NONCE_SALT
+
 RUN chown -R www-data:www-data /var/www/
 
 RUN chmod +x wp-cli.phar
@@ -39,7 +57,7 @@ RUN chown -R www-data:www-data /var/www/html/wordpress
 WORKDIR /var/www/html/wordpress
 
 # move config files to correct dir
-#COPY conf/wp-config.php /var/www/html/wordpress/
+COPY conf/wp-config.php /var/www/html/wordpress/
 COPY conf/www.conf /usr/sbin/php-fpm.d/
 
 # move sh script to root and granting permissions for execution

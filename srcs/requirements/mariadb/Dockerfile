@@ -7,8 +7,7 @@ RUN apt-get update && apt install -y mariadb-server
 COPY conf/mdb.conf /etc/mysql/mariadb.conf.d/
 
 # move sh script to root and grant permissions
-COPY tools/test.sh  /usr/local/bin/
-RUN chmod +x /usr/local/bin/test.sh
-RUN /usr/local/bin/test.sh
+COPY tools/entrypoint.sh  /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-ENTRYPOINT [ "mysqld" ]
+ENTRYPOINT [ "sh" , "/usr/local/bin/entrypoint.sh"]
