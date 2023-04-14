@@ -1,7 +1,7 @@
 # !/bin/bash
 
 #sleep to wait for MariaDB to start
-sleep 5
+sleep 10
 
 su root -c "printenv | awk -F= '{print \$1 \" = \\\"\" \$2 \"\\\"\"}' > /tmp/env_vars"
 chown www-data:www-data /tmp/env_vars
