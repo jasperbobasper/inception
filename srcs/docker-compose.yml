@@ -71,19 +71,18 @@ services:
       - MARIADB_DATABASE=${MARIADB_DATABASE}
       - MARIADB_USER=${MARIADB_USER}
       - MARIADB_PASSWORD=${MARIADB_PASSWORD}
-
-#   nginx:
-#     container_name: nginx
-#     build: requirements/nginx
-#     ports: 
-#       - "443:443"
-#     volumes:
-#       - web:/var/www/wordpress/
-#     networks:
-#       - backend
-#     depends_on:
-#       - wordpress
-#     restart: unless-stopped
+  nginx:
+    container_name: nginx
+    build: requirements/nginx
+    ports: 
+      - "443:443"
+    volumes:
+      - web:/var/www/wordpress/
+    networks:
+      - backend
+    depends_on:
+      - wordpress
+    restart: unless-stopped
 
 networks:
   backend:
