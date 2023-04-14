@@ -44,15 +44,11 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 # ARG LOGGED_IN_SALT
 # ARG NONCE_SALT
 ENV MARIADB_DATABASE=${MARIADB_DATABASE}
-RUN chown -R www-data:www-data /var/www/
 
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
 RUN mkdir -p /run/php
-
-
-RUN chown -R www-data:www-data /var/www/html/wordpress
 
 WORKDIR /var/www/html/wordpress
 
@@ -61,10 +57,17 @@ COPY conf/www.conf /etc/php/7.3/fpm/pool.d
 COPY conf/wp-config.php /var/www/html/wordpress/
 COPY conf/test.php /var
 
+RUN chown -R www-data:www-data /var/www/
+RUN chown -R www-data:www-data /var/www/html/wordpress
+
+RUN chmod +x /var/www/html/wordpress/wp-config.php
+RUN chmod +x /etc/php/7.3/fpm/pool.d/www.conf
+
+RUN service php7.3-fpm reload
 
 # move sh script to root and granting permissions for execution
 COPY tools/config.sh /usr/local/bin/
-RUN chmod 777 /usr/local/bin/config.sh
+RUN chmod +x /usr/local/bin/config.sh
 
 
 # ENTRYPOINT ["/usr/sbin/php-fpm7.3", "--nodaemonize"]

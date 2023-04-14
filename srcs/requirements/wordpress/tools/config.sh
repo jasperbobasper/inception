@@ -3,7 +3,13 @@
 #sleep to wait for MariaDB to start
 sleep 5
 
-# download wp 
+su root -c "printenv | awk -F= '{print \$1 \" = \\\"\" \$2 \"\\\"\"}' > /tmp/env_vars"
+chown www-data:www-data /tmp/env_vars
+
+#service php7.3-fpm reload 
+
+# download wp
+ 
 sudo -u www-data wp core download
 
 #sudo -u www-data wp config create --dbname=$MARIADB_DATABASE --dbuser=$MARIADB_USER --dbpass=$MARIADB_PASSWORD --dbhost=localhost
