@@ -3,6 +3,9 @@ NAME = inception
 all: dir build
 	docker-compose -f  srcs/docker-compose.yml up
 
+debug: dir debug-build
+	docker-compose -f  srcs/docker-compose.yml up
+
 linux:
 	echo "127.0.0.1 jpfannku.42.fr" >> /etc/hosts
 
@@ -11,6 +14,10 @@ dir:
 	mkdir -p ~/data/website
 
 build:
+	docker-compose -f srcs/docker-compose.yml build
+
+debug-build:
+	build:
 	PROGRESS_NO_TRUNC=1 docker-compose -f srcs/docker-compose.yml build --progress plain --no-cache
 	
 stop:

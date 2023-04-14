@@ -1,8 +1,10 @@
 <?php
 
-$db_name = getenv('$MARIADB_DATABASE');
-$db_user = getenv('$MARIADB_USER');
-$db_password = getenv('$MARIADB_PASSWORD');
+putenv('MARIADB_DATABASE=' . getenv('MARIADB_DATABASE'));
+
+$db_name = getenv('MARIADB_DATABASE');
+$db_user = getenv('MARIADB_USER');
+$db_password = getenv('MARIADB_PASSWORD');
 
 var_dump($db_name, $db_user, $db_password);
 
@@ -12,6 +14,10 @@ define('DB_PASSWORD', getenv('MARIADB_PASSWORD'));
 define('DB_HOST', 'localhost');
 define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', '');
+
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', __DIR__ . '/' );
+}
 
 require_once(ABSPATH . 'wp-settings.php');
 

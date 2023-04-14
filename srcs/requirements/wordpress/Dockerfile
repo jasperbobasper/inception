@@ -57,15 +57,14 @@ RUN chown -R www-data:www-data /var/www/html/wordpress
 WORKDIR /var/www/html/wordpress
 
 # move config files to correct dir
+COPY conf/www.conf /etc/php/7.3/fpm/pool.d
 COPY conf/wp-config.php /var/www/html/wordpress/
-COPY conf/www.conf /usr/sbin/php-fpm.d/
+
+RUN service php7.3-fpm restart 
 
 # move sh script to root and granting permissions for execution
 COPY tools/config.sh /usr/local/bin/
 RUN chmod 777 /usr/local/bin/config.sh
-
-# give php client access to folder
-# RUN chown www-data:www-data 
 
 
 # ENTRYPOINT ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
