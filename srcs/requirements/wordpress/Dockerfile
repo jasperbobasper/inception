@@ -43,7 +43,7 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 # ARG SECURE_AUTH_SALT
 # ARG LOGGED_IN_SALT
 # ARG NONCE_SALT
-
+ENV MARIADB_DATABASE=${MARIADB_DATABASE}
 RUN chown -R www-data:www-data /var/www/
 
 RUN chmod +x wp-cli.phar
@@ -59,8 +59,8 @@ WORKDIR /var/www/html/wordpress
 # move config files to correct dir
 COPY conf/www.conf /etc/php/7.3/fpm/pool.d
 COPY conf/wp-config.php /var/www/html/wordpress/
+COPY conf/test.php /var
 
-RUN service php7.3-fpm restart 
 
 # move sh script to root and granting permissions for execution
 COPY tools/config.sh /usr/local/bin/

@@ -17,7 +17,6 @@ build:
 	docker-compose -f srcs/docker-compose.yml build
 
 debug-build:
-	build:
 	PROGRESS_NO_TRUNC=1 docker-compose -f srcs/docker-compose.yml build --progress plain --no-cache
 	
 stop:
