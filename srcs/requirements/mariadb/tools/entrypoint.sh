@@ -1,5 +1,4 @@
 #!/bin/sh
-
 set -e 
 
 # Initialize the database if it is not already initialized
@@ -36,7 +35,11 @@ if ! mysql -u root -p"${MARIADB_ROOT_PASSWORD}" -e "USE ${MARIADB_DATABASE}"; th
 fi
 
 # Stop the background MariaDB process
-mysqladmin shutdown -u root -p"${MYSQL_ROOT_PASSWORD}"
+# mysqladmin shutdown -u root -p"${MYSQL_ROOT_PASSWORD}"
+
+/etc/init.d/mysql stop
 
 # Run MariaDB in the foreground
-exec /usr/sbin/mysqld --datadir=/var/lib/mysql --user=mysql
+# exec /usr/sbin/mysqld --datadir=/var/lib/mysql --user=mysql
+
+exec "$@"

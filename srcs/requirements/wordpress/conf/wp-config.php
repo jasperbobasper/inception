@@ -8,16 +8,16 @@ $env_vars = parse_ini_file('/tmp/env_vars');
 
 // var_dump($db_name, $db_user, $db_password);
 
-define('DB_NAME', $env_vars['MARIADB_DATABASE'] );
+define('DB_NAME', 'wordpress' );
 // print "here is the db name:";
 // print DB_NAME;
-define('DB_USER', $env_vars['MARIADB_USER'] );
+define('DB_USER', 'jpfannku' );
 // print "here is the db user:";
 // print DB_USER;
-define('DB_PASSWORD', $env_vars['MARIADB_PASSWORD'] );
+define('DB_PASSWORD', 'Inception42' );
 // print "here is the db password:";
 // print DB_PASSWORD;
-define('DB_HOST', 'localhost');
+define('DB_HOST', '127.0.0.1');
 define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', '');
 
@@ -36,6 +36,6 @@ define('SECURE_AUTH_SALT',	$env_vars['SECURE_AUTH_SALT'] );
 define('LOGGED_IN_SALT',	$env_vars['LOGGED_IN_SALT'] );
 define('NONCE_SALT',		$env_vars['NONCE_SALT'] );
 
-$table_prefix  = $env_vars['WORDPRESS_TABLE_PREFIX'];
+//$table_prefix  = $env_vars['WORDPRESS_TABLE_PREFIX'];
 
 ?>
