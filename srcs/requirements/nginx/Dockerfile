@@ -2,7 +2,7 @@ FROM debian:buster
 
 RUN apt-get update && apt install -y nginx openssl
 
-# Create ssl certificate
+# Create ssl certificate 
 RUN mkdir /etc/nginx/ssl
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 -keyout /etc/nginx/ssl/nginx-signed.key \
@@ -11,7 +11,10 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 # Configure nginx
 RUN mkdir -p /run/nginx
+# RUN mkdir -p /var/www
 COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
+# COPY conf/index.html /var/www
+#remember to remove the test html later
 
 # Start command
 

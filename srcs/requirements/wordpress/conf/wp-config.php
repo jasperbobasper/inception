@@ -27,14 +27,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once(ABSPATH . 'wp-settings.php');
 
-define('AUTH_KEY',		$env_vars['AUTH_KEY'] );
-define('SECURE_AUTH_KEY',	$env_vars['SECURE_AUTH_KEY'] );
-define('LOGGED_IN_KEY',		$env_vars['LOGGED_IN_KEY'] );
-define('NONCE_KEY',		$env_vars['NONCE_KEY'] );
-define('AUTH_SALT',		$env_vars['AUTH_SALT'] );
-define('SECURE_AUTH_SALT',	$env_vars['SECURE_AUTH_SALT'] );
-define('LOGGED_IN_SALT',	$env_vars['LOGGED_IN_SALT'] );
-define('NONCE_SALT',		$env_vars['NONCE_SALT'] );
+// define('AUTH_KEY',		$env_vars['AUTH_KEY'] );
+// define('SECURE_AUTH_KEY',	$env_vars['SECURE_AUTH_KEY'] );
+// define('LOGGED_IN_KEY',		$env_vars['LOGGED_IN_KEY'] );
+// define('NONCE_KEY',		$env_vars['NONCE_KEY'] );
+// define('AUTH_SALT',		$env_vars['AUTH_SALT'] );
+// define('SECURE_AUTH_SALT',	$env_vars['SECURE_AUTH_SALT'] );
+// define('LOGGED_IN_SALT',	$env_vars['LOGGED_IN_SALT'] );
+// define('NONCE_SALT',		$env_vars['NONCE_SALT'] );
 
 //$table_prefix  = $env_vars['WORDPRESS_TABLE_PREFIX'];
 
