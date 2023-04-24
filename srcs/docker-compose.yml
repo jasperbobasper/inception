@@ -33,31 +33,6 @@ services:
   wordpress:
     container_name: wordpress
     build: requirements/wordpress
-    # build:
-    #   context: requirements/wordpress
-    #   args:
-    #     - MARIADB_DATABASE=${MARIADB_DATABASE}
-    #     - MARIADB_USER=${MARIADB_USER}
-    #     - MARIADB_PASSWORD=${MARIADB_PASSWORD}
-    #     - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-    #     - WORDPRESS_TITLE=${WORDPRESS_TITLE}
-    #     - WORDPRESS_USER=${WORDPRESS_USER}
-    #     - WORDPRESS_USER_MAIL=${WORDPRESS_USER_MAIL}
-    #     - WORDPRESS_PASS=${WORDPRESS_PASS}
-    #     - WORDPRESS_ADMIN_USER=${WORDPRESS_ADMIN_USER}
-    #     - WORDPRESS_ADMIN_PASS=${WORDPRESS_ADMIN_PASS}
-    #     - WORDPRESS_ADMIN_EMAIL=${WORDPRESS_ADMIN_EMAIL}
-    #     - WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX}
-    #     - AUTH_KEY=${AUTH_KEY}
-    #     - SECURE_AUTH_KEY=${SECURE_AUTH_KEY}
-    #     - LOGGED_IN_KEY=${LOGGED_IN_KEY}
-    #     - NONCE_KEY=${NONCE_KEY}
-    #     - AUTH_SALT=${AUTH_SALT}
-    #     - SECURE_AUTH_SALT=${SECURE_AUTH_SALT}
-    #     - LOGGED_IN_SALT=${LOGGED_IN_SALT}
-    #     - NONCE_SALT=${NONCE_SALT}
-    # ports:
-    #   - '9000:9000'
     volumes: 
       - web:/var/www/html
     depends_on:
@@ -67,10 +42,7 @@ services:
       - backend
     env_file:
       - .env
-    environment:
-      - MARIADB_DATABASE=${MARIADB_DATABASE}
-      - MARIADB_USER=${MARIADB_USER}
-      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+
   nginx:
     container_name: nginx
     build: requirements/nginx

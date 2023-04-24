@@ -8,14 +8,8 @@ RUN mkdir -p /var/run/mysqld \
 && chown -R mysql:mysql /var/run/mysqld \
 && chmod 777 /var/run/mysqld
 
-
-# EXPOSE 3306
-
 # move config files
-COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 COPY conf/my.cnf /etc/mysql/mariadb.conf.d/
-# COPY conf/mdb.conf /etc/mysql/
-
 
 # move sh script to root and grant permissions
 COPY tools/entrypoint.sh  /usr/local/bin/
@@ -24,6 +18,3 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh"]
 
 CMD ["mysqld"]
-# , "--bind-address=0.0.0.0"
-
-# CMD ["/usr/bin/mysqld_safe", "--datadir='/var/lib/mysql"]
