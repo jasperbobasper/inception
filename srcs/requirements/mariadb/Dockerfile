@@ -2,17 +2,18 @@ FROM debian:buster
 
 # install mariadb
 RUN apt-get update && apt install -y mariadb-server \
-    mariadb-client 
+    mariadb-client net-tools sudo
 
 RUN mkdir -p /var/run/mysqld \
 && chown -R mysql:mysql /var/run/mysqld \
 && chmod 777 /var/run/mysqld
 
 
-EXPOSE 3306
+# EXPOSE 3306
 
 # move config files
-# COPY conf/mdb.conf /etc/mysql/mariadb.conf.d/
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY conf/my.cnf /etc/mysql/mariadb.conf.d/
 # COPY conf/mdb.conf /etc/mysql/
 
 
@@ -22,4 +23,7 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh"]
 
-CMD ["mysqld", "--bind-address=0.0.0.0"]
+CMD ["mysqld"]
+# , "--bind-address=0.0.0.0"
+
+# CMD ["/usr/bin/mysqld_safe", "--datadir='/var/lib/mysql"]

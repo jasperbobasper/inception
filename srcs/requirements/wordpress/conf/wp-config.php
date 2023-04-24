@@ -1,6 +1,6 @@
 <?php
 
-$env_vars = parse_ini_file('/tmp/env_vars');
+// $env_vars = parse_ini_file('/tmp/env_vars');
 
 // $db_name = $env_vars['MARIADB_DATABASE'];
 // $db_user = $env_vars['MARIADB_USER'];
@@ -11,16 +11,19 @@ $env_vars = parse_ini_file('/tmp/env_vars');
 define('DB_NAME', 'wordpress' );
 // print "here is the db name:";
 // print DB_NAME;
-define('DB_USER', 'jpfannku' );
+define('DB_USER', 'root' );
 // print "here is the db user:";
 // print DB_USER;
-define('DB_PASSWORD', 'Inception42' );
+define('DB_PASSWORD', '42Born2Code' );
 // print "here is the db password:";
 // print DB_PASSWORD;
 define('DB_HOST', '127.0.0.1');
 define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', '');
 
+define( 'WP_DEBUG', true);
+define( 'WP_DEBUG_DISPLAY', true);
+define( 'WP_ALLOW_REPAIR', true);
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );
 }
