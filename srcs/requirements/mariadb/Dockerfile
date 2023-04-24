@@ -10,6 +10,7 @@ RUN mkdir -p /var/run/mysqld \
 
 # move config files
 COPY conf/my.cnf /etc/mysql/mariadb.conf.d/
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
 # move sh script to root and grant permissions
 COPY tools/entrypoint.sh  /usr/local/bin/

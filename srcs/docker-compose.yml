@@ -33,6 +33,8 @@ services:
   wordpress:
     container_name: wordpress
     build: requirements/wordpress
+    ports:
+      - 9000:9000
     volumes: 
       - web:/var/www/html
     depends_on:
