@@ -1,7 +1,7 @@
 all: dir
 	@docker compose -f ./srcs/docker-compose.yml up -d --build
 
-re: fclean
+re: fclean dir
 	@docker compose -f ./srcs/docker-compose.yml up -d --build
 
 reload:

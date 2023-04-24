@@ -37,10 +37,10 @@ echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MARIADB_ROOT_PAS
 #     # Create database and user if they don't exist
 #     # if ! mysql -u root -p"${MARIADB_ROOT_PASSWORD}" -e "USE ${MARIADB_DATABASE}"; then
 #     #     echo "Creating database and user..."
-sudo mysql -u root -p"${MARIADB_ROOT_PASSWORD}" -e "USE mysql; UPDATE user SET plugin='unix_socket' WHERE User='root';"
 sudo mysql -u root -p"${MARIADB_ROOT_PASSWORD}" -e "CREATE DATABASE IF NOT EXISTS ${MARIADB_DATABASE};"
 sudo mysql -u root -p"${MARIADB_ROOT_PASSWORD}" -e "CREATE USER IF NOT EXISTS '${MARIADB_USER}'@'%' IDENTIFIED BY '${MARIADB_PASSWORD}';"
 sudo mysql -u root -p"${MARIADB_ROOT_PASSWORD}" -e "GRANT ALL PRIVILEGES ON ${MARIADB_DATABASE}.* TO '${MARIADB_USER}'@'%' WITH GRANT OPTION;"
+# sudo mysql -u root -p"${MARIADB_ROOT_PASSWORD}" -e "USE mysql; UPDATE user SET plugin='unix_socket' WHERE User='root';"
 # mysql -u root -p"${MARIADB_ROOT_PASSWORD}" -e "ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('${MARIADB_ROOT_PASSWORD}');"
 sudo mysql -u root -p"${MARIADB_ROOT_PASSWORD}" -e "FLUSH PRIVILEGES;"
 #     #     echo "Database and user created"

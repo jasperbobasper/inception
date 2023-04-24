@@ -14,6 +14,7 @@ RUN     apt-get update && apt install -y \
 	php-mbstring \
         telnet \
         net-tools \
+        mariadb-client \
         && rm -rf /var/lib/apt/lists/*
 
 # Download wp-cli 
@@ -31,7 +32,7 @@ RUN mkdir /run/php
 
 COPY conf/wp-config.php /var/www/html/
 
-# COPY conf/test.php /var TEST REMOVE
+COPY conf/test.php /var/
 
 # move sh script to root and granting permissions for execution
 COPY tools/config.sh /usr/local/bin/

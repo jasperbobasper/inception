@@ -11,13 +11,13 @@
 define('DB_NAME', 'wordpress' );
 // print "here is the db name:";
 // print DB_NAME;
-define('DB_USER', 'root' );
+define('DB_USER', 'jpfannku' );
 // print "here is the db user:";
 // print DB_USER;
-define('DB_PASSWORD', '42Born2Code' );
+define('DB_PASSWORD', 'Inception42' );
 // print "here is the db password:";
 // print DB_PASSWORD;
-define('DB_HOST', '127.0.0.1');
+define('DB_HOST', 'mariadb');
 define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', '');
 
