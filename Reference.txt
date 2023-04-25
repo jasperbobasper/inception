@@ -86,3 +86,5 @@ Daemon needs to be off in Nginx in docker because it keeps the service running i
 Mariadb needs the database to be created and the user credentials to be input. 
 https://mariadb.com/kb/en/setting-up-a-lamp-stack-with-docker-compose/
 
+git@vogsphere.42wolfsburg.de:vogsphere/intra-uuid-a8d22822-98ef-4c29-861c-b732e188b4e3-4566908-jpfannku
+
