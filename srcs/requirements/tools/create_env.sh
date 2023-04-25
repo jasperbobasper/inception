@@ -7,42 +7,45 @@ if [ -f $env_path ]; then
     echo ".env file already exists."
 else
     # Ask for username and password
-    read -p "Enter evaluated student Intra ID: " intra
+    read -p "Enter evaluated student Intra ID: (default: jpfannku)" intra
+    intra=${intra:-jpfannku}
     read -p "Enter Mariadb database name (default: wordpress): " dbname
     dbname=${dbname:-wordpress}
     read -p "Enter Mariadb username: " mdbusername
     read -s -p "Enter Mariadb password: " mdbpassword
-    echo "\n"
-    valid_password=false
-    while [ "$valid_password" = false ]; do
-        read -s -p "Enter Mariadb root password: " mdbrootpassword
-    # Check if password contains the words "admin" or "123"
-        if [[ $mdbrootpassword == *"admin"* || $mdbrootpassword == *"Admin"* || $mdbrootpassword == *"123"* ]]; then
-            echo "Mdb root password contains the word admin or 123. Please choose a different password."
-        else 
-            valid_password=true
-            echo "\n"
-        fi
-    done
+    echo ''
+    read -s -p "Enter Mariadb root password: " mdbrootpassword
+    echo ''
     read -p "Enter wordpress title: (default: Inception)" wptitle
     wptitle=${wptitle:-Inception}
     read -p "Enter wordpress username: " wpusername
-    read -s -p "Enter wordpress password: " wppassword
-    echo "\n"
     read -p "Enter wordpress user email: " wpemail
-    read -p "Enter wordpress admin username: " wpadminusername
-    valid_password=false
-    while [ "$valid_password" = false ]; do
-        read -s -p "Enter wordpress admin password: " wpadminpassword
-    # Check if password contains the words "admin" or "123"
-        if [[ $wpadminpassword == *"admin"* || $wpadminpassword == *"Admin"* || $wpadminpassword == *"123"* ]]; then
-            echo "Wordpress admin password contains the word admin or 123. Please choose a different password."
+    read -s -p "Enter wordpress password: " wppassword
+    echo ''
+    valid_user=false
+    while [ "$valid_user" = false ]; do
+        read -p "Enter wordpress admin username: " wpadminusername
+    # Check if username contains variations on the word "admin/administrator"
+        if [[ $wpadminusername == *"admin"* || $wpadminusername == *"Admin"* ]]; then
+            echo "Wordpress admin username contains the word admin. Please choose a different username."
+    # Check username is different to the other user
+        elif [[ $wpadminusername == $wpusername ]]; then
+            echo "Admin username must be different from wordpress user"
         else 
-            valid_password=true
-            echo "\n"
+            valid_user=true
         fi
     done
-    read -p "Enter wordpress admin email: " wpadminemail
+    valid_mail=false
+    while [ "$valid_mail" = false ]; do
+        read -p "Enter wordpress admin email: " wpadminemail
+        if [[ $wpadminemail == $wpemail ]]; then
+            echo "Admin email must be different than user email."
+        else
+            valid_mail=true
+        fi
+    done
+    read -s -p "Enter wordpress admin password: " wpadminpassword
+    echo ''
     read -p "Enter wordpress table prefix (default: _wp): " wpprefix
     wpprefix=${wpprefix:-_wp}
 
