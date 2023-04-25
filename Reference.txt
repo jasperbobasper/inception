@@ -85,7 +85,3 @@ Daemon needs to be off in Nginx in docker because it keeps the service running i
 
 Mariadb needs the database to be created and the user credentials to be input. 
 https://mariadb.com/kb/en/setting-up-a-lamp-stack-with-docker-compose/
-
-git@vogsphere.42wolfsburg.de:vogsphere/intra-uuid-a8d22822-98ef-4c29-861c-b732e188b4e3-4566908-jpfannku
-
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCZ0AA4oBgRiOHr2jjCeCYJpQelQV+JnTfDjSpNNuXMA7WRtwlSAMljU3uRqVo29CzaQH3RoUcdtNq9jVNTPkGm0cZfzKD5xhIclCH2X++0dOxJM2coPNfYoJ650xuHvk2BqGSQkgDbGRCZJwagYS6zLtiRka3gkZxG9FgBGA4+a9xaLajClrtaTOibqSdnlnmcBibLfm20Nx/9UIt66/UoNfCzCyQo2267/ieBNqV9okyiLyzAIqVryoBwBB1IVE01Rlfdycx9AuAluGhz863e2+kvoEJgNMlNZZDpiCinx+kHQHHIZDP93cM0d/DGsGGt+RkOYBbI2lW7nSvSCOYjIrQAUHBZ3Ft1q7XfJIzYKGQVdoSvGY7vWMp6d2Owm75qgPzARpn6cvmek3IeBAPl1MRzd5bSVNK6Te/EbAGHbHoqv3Y28o7ZBDrNyYFLMoiZ+TmKjRBI5/1LL/nKDMLvdAZXoU6NvBPWVbnnFAswbumc78n/Fr+lCyp0mipE8ME= jas@inception
