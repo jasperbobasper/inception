@@ -1,4 +1,4 @@
-# inception
+# Inception
 
 Inception is a project aimed at learning Docker and structuring Docker containers, along with setting up a basic wordpress backend and database using Docker Compose.
 
